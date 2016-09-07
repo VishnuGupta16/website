@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Albums of {{ album.artist }}</title>
+    <img src="{{ album.album_logo }}" alt="Smiley face" height="100" width="100">
+    <h2>{{ album.album_title }}</h2>
+    <h3>{{ album.artist }}</h3>
+</head>
+<body>
+    {% for song in album.song_set.all %}
+        <ul>
+            <li>{{ song.song_title }}.{{ song.file_type }}</li>
+        </ul>
+    {% endfor %}
+</body>
+</html>
