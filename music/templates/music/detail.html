@@ -8,10 +8,19 @@
     <h3>{{ album.artist }}</h3>
 </head>
 <body>
-    {% for song in album.song_set.all %}
-        <ul>
-            <li>{{ song.song_title }}.{{ song.file_type }}</li>
-        </ul>
-    {% endfor %}
+    {% if error_message %}
+       <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'music:favourite' album.id %}" method="POST">
+        {% csrf_token %}
+        {% for song in album.song_set.all %}
+
+            <input type="radio" name="song" value="{{ song.id }}" id="song{{ forloop.counter }}">
+            <label for="song{{ forloop.counter }}">{{ song.song_title }}{% if song.is_favourite %}
+                <img src="https://sc.mogicons.com/share/star-smiley-234.jpg" height="20" width="20">{% endif %}</label>
+        {% endfor %}<br>
+        <input type="submit" value="Favourite Song">
+    </form>
 </body>
 </html>
